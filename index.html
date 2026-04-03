@@ -1,10 +1,31 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-us">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="ad.orientation" content="both">
+    <script src="https://tpc.googlesyndication.com/pagead/gadgets/html5/api/exitapi.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | PlayableTest</title>
-  </head>
+	<meta name="ad.size" content="width=320,height=480">
+    <title>Anipang 2 Playable</title>
+  
+<script>
+    // Google Ads: Ensure audio is muted until first user interaction
+    (function() {
+        var _origAudioContext = window.AudioContext || window.webkitAudioContext;
+        if (_origAudioContext) {
+            var _origResume = _origAudioContext.prototype.resume;
+            var _userInteracted = false;
+            document.addEventListener('click', function() { _userInteracted = true; }, { once: true });
+            document.addEventListener('touchstart', function() { _userInteracted = true; }, { once: true });
+            _origAudioContext.prototype.resume = function() {
+                if (!_userInteracted) return Promise.resolve();
+                return _origResume.call(this);
+            };
+        }
+    })();
+</script>
+</head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=320 height=480 tabindex="-1" style="width: 320px; height: 480px; background: #231F20"></canvas>
     <script src="Build/3edc508e83d5fc76ca97494317f486fa.loader.js"></script>
@@ -27,12 +48,12 @@
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
         arguments: [],
-        dataUrl: "Build/24f13e0d341b0610f30197d9c3f59b86.data.unityweb",
+        dataUrl: "Build/a7c67dc756fb6c262421a51ec1e6748c.data.unityweb",
         frameworkUrl: "Build/6ee8a3f90e45f03d2c2807a3a53db5b3.framework.js.unityweb",
         codeUrl: "Build/669fee6da75ed29a67613118d613a9c0.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "PlayableTest",
+        companyName: "Wemade Play",
+        productName: "Anipang 2",
         productVersion: "1.0",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
@@ -41,5 +62,37 @@
         alert(message);
       });
     </script>
-  </body>
+  
+<!-- Google Ads CTA Button -->
+<div id="google-ads-cta" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:99999; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; flex-direction:column;">
+    <div style="text-align:center; padding:20px;">
+        <button id="google-ads-install-btn" onclick="ExitApi.exit()" style="
+            padding: 18px 48px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: transform 0.2s;
+        ">INSTALL NOW</button>
+    </div>
+</div>
+<script>
+    // Show CTA button - can be triggered by game end or timeout
+    function showGoogleAdsCTA() {
+        var cta = document.getElementById('google-ads-cta');
+        if (cta) { cta.style.display = 'flex'; }
+    }
+    // Also make the CTA accessible globally
+    window.showGoogleAdsCTA = showGoogleAdsCTA;
+    // Auto-show CTA after a reasonable play time (configurable)
+    // Uncomment the line below to auto-show after N seconds:
+    // setTimeout(showGoogleAdsCTA, 15000);
+</script>
+</body>
 </html>
